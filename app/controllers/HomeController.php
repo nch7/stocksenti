@@ -24,12 +24,22 @@ class HomeController extends BaseController {
 	public function index($stock)
 	{
 
+<<<<<<< HEAD
+		$tweets = $this->gateway->search('apple');
+=======
 		$tweets = $this->gateway->getMessageAboutSymbol($stock);
+>>>>>>> 679168d0b661e156874a51fc488bb67cbb2d95f0
 
 		debug($tweets);
 
 		return '</br>';
 
+<<<<<<< HEAD
+	}
+	public function test(){
+		return "Site is comming soon!";
+=======
+>>>>>>> 679168d0b661e156874a51fc488bb67cbb2d95f0
 	}
 
 }
