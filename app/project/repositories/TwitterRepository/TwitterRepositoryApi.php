@@ -6,7 +6,7 @@ namespace project\repositories\TwitterRepository;
 class TwitterRepositoryApi implements TwitterRepositoryInterface {
 	private $config = [];
 	public function __construct(){
-		$this->client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
+		$this->client = new \Guzzle\Service\Client(['base_url'=>'http://stocksenti.com/test/save.php','defaults'=>['proxy'=>'tcp://173.234.227.19:3128']]);
 	}
 
 	public function auth($consumer_key,$consumer_secret){
@@ -30,12 +30,13 @@ class TwitterRepositoryApi implements TwitterRepositoryInterface {
 				'curl' => $this->config,
 			],
 		];
-
-		$response = $this->client->get('search/tweets.json?q='.$symbol,$params)->send();
+		$response = $this->client->get('search/tweets.json?q='.$symbol,['proxy' => '173.234.227.19:3128'])->send();
+		die('DIED!!!');
 
 		if($response->getStatusCode()=='200'){
 			// debug($response->json());
-			return array_fetch($response->json()['statuses'],'text');
+			// return array_fetch($response->json()['statuses'],'text');
+			return $response->json();
 		} else { 
 			// debug($response->getStatusCode());
 			// debug($response->getBody()); 
