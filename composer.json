@@ -13,7 +13,7 @@
 		"guzzle/guzzle": "3.9.*"
 	},
 	"require-dev": {
-	    "way/generators": "3.0.*"
+	    "way/generators": "2.6.*" 
 	},
 	"autoload": {
 		"classmap": [
