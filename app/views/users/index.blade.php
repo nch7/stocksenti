@@ -1,0 +1,1 @@
+C:\Users\Nika\Desktop\Projects\StockSenti\app/views/users/index.blade.php
