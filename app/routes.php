@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', array('uses' => 'HomeController@index'));
+Route::get('/{stock?}', array('uses' => 'HomeController@index'));

@@ -21,10 +21,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function index()
+	public function index($stock)
 	{
 
-		$tweets = $this->gateway->search('apple');
+		$tweets = $this->gateway->getMessageAboutSymbol($stock);
 
 		debug($tweets);
 
