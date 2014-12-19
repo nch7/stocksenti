@@ -1,10 +1,10 @@
 <?php
 
-use project\gateways\UserGateway;
+use project\gateways\StocktwitsGateway;
 
 class HomeController extends BaseController {
 
-	public function __construct(UserGateway $gateway){
+	public function __construct(StocktwitsGateway $gateway){
 		$this->gateway = $gateway;
 	}
 
@@ -23,7 +23,13 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		return $this->gateway->test();
+
+		$tweets = $this->gateway->search('apple');
+
+		debug($tweets);
+
+		return '</br>';
+
 	}
 
 }

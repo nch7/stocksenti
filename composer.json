@@ -9,7 +9,8 @@
 		"fzaninotto/faker": "1.4.*",
 		"barryvdh/laravel-debugbar": "~1.8",
 		"edvinaskrucas/notification": "3.0.*",
-		"watson/validating": "0.10.*@dev"
+		"watson/validating": "0.10.*@dev",
+		"guzzle/guzzle": "3.9.*"
 	},
 	"require-dev": {
 	    "way/generators": "3.0.*"
