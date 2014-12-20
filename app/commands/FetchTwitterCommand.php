@@ -93,7 +93,7 @@ class FetchTwitterCommand extends Command {
 
 			DB::table('company_scores')->insert($data);
 			echo sprintf('Inserted %d rows'."\r\n",count($data));
-			DB::statement('INSERT INTO `last_fetched_tweet` (`company_id`,`tweet_id`) VALUES ("'.$company_id.'","'.$maxTweetId.'") ON DUPLICATE KEY UPDATE `tries`=`tries`+1, `tweet_id`="'.$maxTweetId.'"');
+			DB::statement('INSERT INTO `last_fetched_tweet` (`company_id`,`tweet_id`) VALUES ("'.$company_id.'","'.$maxTweetId.'") ON DUPLICATE KEY UPDATE `tweet_id`="'.$maxTweetId.'"');
 		}
 
 		DB::table('active_companys')->where('company_id',$company_id)->update(['status'=>0,'last_action'=>time()]);

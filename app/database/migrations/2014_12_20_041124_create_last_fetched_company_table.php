@@ -15,7 +15,7 @@ class CreateLastFetchedCompanyTable extends Migration {
 		Schema::create('last_fetched_tweet', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('tweet_id')->unsigned();
+			$table->bigInteger('tweet_id')->unsigned();
 			$table->integer('company_id')->unique()->unsigned();
 		});
 	}
