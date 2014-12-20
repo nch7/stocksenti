@@ -1,11 +1,14 @@
 <?php
 
-use project\gateways\StocktwitsGateway;
-
+use project\gateways\TwitterGateway;
+use project\gateways\CompanyGateway;
 class HomeController extends BaseController {
 
-	public function __construct(StocktwitsGateway $gateway){
-		$this->gateway = $gateway;
+	public function __construct(TwitterGateway $TwitterGateway,CompanyGateway $CompanyGateway)
+	{
+		
+		$this->TwitterGateway = $TwitterGateway;
+		$this->CompanyGateway = $CompanyGateway;
 	}
 
 	/*
@@ -23,23 +26,26 @@ class HomeController extends BaseController {
 
 	public function index($stock)
 	{
-
-
-		$tweets = $this->gateway->search('apple');
-
-		$tweets = $this->gateway->getMessageAboutSymbol($stock);
-
-
-		debug($tweets);
-
+		$sentiment = new \PHPInsight\Sentiment();
+		$tweets = $this->TwitterGateway->getMessageAboutSymbol($stock);
+		$tweets;
+		$results = [];
+		foreach ($tweets as $tweet){
+			$results[] = [
+				'scores'=>$sentiment->score($tweet),
+				'category' => $sentiment->categorise($tweet),
+				'text'=>$tweet,
+			];
+		}
+		echo '<pre>';
+		print_r($results);
 		return '</br>';
 
 
 	}
-	public function test(){
-		$sentiment = new \PHPInsight\Sentiment();
-		return $sentiment->score("I hate you");
 
+	public function test(){
+		
 	}
 
 }

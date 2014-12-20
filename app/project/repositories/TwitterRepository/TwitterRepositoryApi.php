@@ -4,22 +4,42 @@ namespace project\repositories\TwitterRepository;
 
  
 class TwitterRepositoryApi implements TwitterRepositoryInterface {
-
+	private $config = [];
 	public function __construct(){
 		$this->client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
-
-		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
-			'consumer_key' => "3nVuSoBZnx6U4vzUxf5w",
-			'consumer_secret' => "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys"
-		]);
-
-		$this->client->addSubscriber($auth);
 	}
 
-	public function search($q){
+	public function auth($consumer_key,$consumer_secret){
+		
+		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
+			'consumer_key' => $consumer_key,
+			'consumer_secret' => $consumer_secret
+		]);
 
-		$response = $this->client->get('search/tweets.json?q='.$q)->send();
+		return $this->client->addSubscriber($auth);
+	}
 
-		return $tweets = array_fetch($response->json()['statuses'],'text');
+	public function setProxy($proxy){
+		return $this->config[CURLOPT_PROXY]=$proxy; 
+	}
+
+	public function getMessageAboutSymbol($symbol){
+
+		$params = [
+			'config' => [
+				'curl' => $this->config,
+			],
+		];
+
+		$response = $this->client->get('search/tweets.json?q='.$symbol,$params)->send();
+
+		if($response->getStatusCode()=='200'){
+			debug($response->json());
+			return array_fetch($response->json()['statuses'],'text');
+		} else { 
+			debug($response->getStatusCode());
+			debug($response->getBody()); 
+			return false;
+		}
 	}
 }
