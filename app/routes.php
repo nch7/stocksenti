@@ -20,3 +20,5 @@ Route::post('/signin', array('uses' => 'UsersController@attempt'));
 Route::get('/signup', array('uses' => 'UsersController@create'));
 Route::post('/signup', array('uses' => 'UsersController@store'));
 Route::get('/admin', array('uses' => 'AdminUserController@login'));
+
+Route::resource('/company','CompaniesController');

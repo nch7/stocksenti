@@ -1,7 +1,12 @@
 <?php
 
 class CompaniesController extends \BaseController {
-
+	public function __construct(){
+		if(!Auth::check()){
+			return Route::to('/');
+		}
+	}
+	protected $layout = "layouts.user_layout";
 	/**
 	 * Display a listing of the resource.
 	 * GET /companies
@@ -10,8 +15,12 @@ class CompaniesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$companys = DB::table('companys')->get();
-	}
+		$layouts
+		$user = User::with('companys')->find(Auth::id());
+		$this->layout->companys = $user->companys;
+		return View::make('hello');
+	}	
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -21,7 +30,7 @@ class CompaniesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
 	/**

@@ -38,7 +38,7 @@ class UsersController extends \BaseController {
 			if (!empty($errors)){
 				$my_errors = array(2 => $errors);
 				Notification::error($my_errors);
-				return Redirect::back();
+				return Redirect::to('company');
 			}else{
 				DB::table('users')->insert(
 				    array('username' => $username, 'password' => $password)
