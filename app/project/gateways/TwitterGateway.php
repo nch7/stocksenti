@@ -12,14 +12,23 @@ class TwitterGateway {
 		$this->TwitterRepository = $TwitterRepository;
 	}
 
-	public function getMessageAboutSymbol($symbol){
-		return $this->TwitterRepository->getMessageAboutSymbol($symbol);
+	public function getMessageAboutSymbol($symbol,$opts){
+		extract($opts);
+		
+		$settings = array(
+		    'consumer_key' => $consumer_key,
+		    'consumer_secret' => $consumer_secret
+		);
+
+		$url = 'https://api.twitter.com/1.1/blocks/create.json';
+		$requestMethod = 'GET';
+
+		$getfield = '?q='.$symbol;
+
+		$this->TwitterRepository->init($settings);
+		return $this->TwitterRepository->setGetfield($getfield)->buildOauth($url, $requestMethod)->performRequest(true,$proxy);
 	}
 
-	public function auth($consumer_key,$consumer_secret){
-		$this->TwitterRepository->auth($consumer_key,$consumer_secret);
-		return $this;
-	}
 
 	public function setProxy($proxy){
 		if(!empty($proxy)){
@@ -28,4 +37,5 @@ class TwitterGateway {
  
 		return $this;
 	}
+
 }

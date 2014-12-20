@@ -49,15 +49,14 @@ class FetchTwitterCommand extends Command {
 		DB::table('twitter_tokens')->where('id',$twitter_keys->id)->update(array('last_action'=>time()));
 
 		$twitter = App::make('\project\gateways\TwitterGateway');
-		$twitter->setProxy('tcp://'.$twitter_keys->proxy)->auth($twitter_keys->consumer_key,$twitter_keys->consumer_secret);
-
 
 		if(!$company){
 			echo 'Company search failed'; 
 		}
 
-		$tweets = $twitter->getMessageAboutSymbol($company->symbol);
-
+		$tweets = $twitter->getMessageAboutSymbol($company->symbol,(array)$twitter_keys);
+		var_dump($tweets);
+		die();
 		if(!$tweets){
 			echo 'Twitter search failed';
 		}
