@@ -18,6 +18,7 @@ class CreateActiveCompanys extends Migration {
 			$table->integer('company_id')->unsigned()->unique();
 			$table->tinyInteger('status')->unsigned();
 			$table->integer('last_action')->unsigned();
+			$table->tinyInteger('state');  
 		});
 	}
 
