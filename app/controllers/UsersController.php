@@ -42,7 +42,7 @@ class UsersController extends \BaseController {
 		$errors = array();
 		$user = DB::table('users')->where('username', $input['username'])->first();
 		if (!empty($user)){
-			$errors[]="This username already exists, try another dude";
+			$errors[]="This username has already been captivated, try another";
 		}
 		foreach ($input as $key => $value) {
 			if ($value == ''){
@@ -53,14 +53,15 @@ class UsersController extends \BaseController {
 			$errors[] = "Your password doesn't match confirmed password";
 		}
 		if (!empty($errors)){
-			Notification::error($errors);
+			$my_errors = array(2 => $errors);
+			Notification::error($my_errors);
 			return Redirect::back();
 		}else{
 			DB::table('users')->insert(
 			    array('username' => $username, 'password' => $password)
 			);
 			Notification::success('You have been successfully registered!');
-			return Redirect::to('signin');
+			return Redirect::to('/');
 		}
 
 	}
@@ -75,7 +76,13 @@ class UsersController extends \BaseController {
 	public function attempt()
 	{
 		$input = Input::all();
-
+		$errors = array();
+		if (empty($input['username'])){
+			$errors[] = "You must fill username field";
+		}
+		if (empty($input['password'])){
+			$errors[] = "You must fill password field";
+		}
 		$attempt = Auth::attempt([
 			'username' => $input['username'],
 			'password' => $input['password']
@@ -84,9 +91,12 @@ class UsersController extends \BaseController {
 			Notification::success("Successfully logged in");
 			return Redirect::back();
 
+		}else{
+			$error[] = "Your login attempt was failed due to wrong password or username";
+			Notification::error($errors);
+			return Redirect::back();
 		}
-		Notification::error("Your login attempt was failed due to wrong password or username");
-		return Redirect::back();
+		
 
 
 	}
@@ -108,7 +118,7 @@ class UsersController extends \BaseController {
 	{
 		Auth::logout();
 		Notification::success("You have been logged out Successfully!");
-		return Redirect::home();
+		return Redirect::to('hello');
 	}
 
 }
