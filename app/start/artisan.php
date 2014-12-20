@@ -10,4 +10,7 @@
 | the console gets access to each of the command object instances.
 |
 */
-
+// Artisan::add(App::make('\project\gateways\TwitterGateway'));
+Artisan::add(new SyncActiveCompaniesCommand);
+Artisan::add(new FetchTwitterCommand);
+Artisan::add(new TwitterFetchingLauncher);

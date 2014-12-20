@@ -15,7 +15,7 @@ class CreateActiveCompanys extends Migration {
 		Schema::create('active_companys', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('company_id')->unsigned();
+			$table->integer('company_id')->unsigned()->unique();
 			$table->tinyInteger('status')->unsigned();
 			$table->integer('last_action')->unsigned();
 		});

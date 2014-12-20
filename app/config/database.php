@@ -55,11 +55,11 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
+			'database'  => 'dollarme_stockse',
+			'username'  => 'dollarme_stockse',
+			'password'  => '3U$3q2pT]o$G',
 			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
+			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
 		),
 
