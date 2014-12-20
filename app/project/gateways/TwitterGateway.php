@@ -13,13 +13,9 @@ class TwitterGateway {
 	}
 
 	public function getMessageAboutSymbol($symbol){
-		return $this->TwitterRepository->getMessageAboutSymbol($symbol);
+		$this->TwitterRepository->search($symbol);	
 	}
 
-	public function auth($consumer_key,$consumer_secret){
-		$this->TwitterRepository->auth($consumer_key,$consumer_secret);
-		return $this;
-	}
 
 	public function setProxy($proxy){
 		if(!empty($proxy)){
@@ -28,4 +24,5 @@ class TwitterGateway {
  
 		return $this;
 	}
+
 }

@@ -1,45 +1,37 @@
 <?php 
-
+use GuzzleHttp\Client;
 namespace project\repositories\TwitterRepository;
 
+date_default_timezone_set('Europe/London');
+
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
  
 class TwitterRepositoryApi implements TwitterRepositoryInterface {
-	private $config = [];
-	public function __construct(){
-		$this->client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
-	}
 
-	public function auth($consumer_key,$consumer_secret){
-		
-		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
-			'consumer_key' => $consumer_key,
-			'consumer_secret' => $consumer_secret
-		]);
+    public function search($company){
+    //$client = new \Guzzle\Service\Client('https://api.twitter.com/1.1');
+    
 
-		return $this->client->addSubscriber($auth);
-	}
+    $client = new \Guzzle\Service\Client('http://api.twitter.com/1.1', array(
+        'request.options' => array(
+            // This should be the port you've configured Charles to listen for.
+            'proxy'   => '173.234.57.14:3128',
+        )
+    ));
+    $auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
+        'consumer_key' => '3nVuSoBZnx6U4vzUxf5w',
+        'consumer_secret' => 'Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys',
 
-	public function setProxy($proxy){
-		return $this->config[CURLOPT_PROXY]=$proxy; 
-	}
+        ]);
+    
 
-	public function getMessageAboutSymbol($symbol){
 
-		$params = [
-			'config' => [
-				'curl' => $this->config,
-			],
-		];
+    $client->addSubscriber($auth);
+    $response = $client->get("search/tweets.json?q=".$company)->send();
 
-		$response = $this->client->get('search/tweets.json?q='.$symbol,$params)->send();
+    dd($response->json());
+    
 
-		if($response->getStatusCode()=='200'){
-			// debug($response->json());
-			return array_fetch($response->json()['statuses'],'text');
-		} else { 
-			// debug($response->getStatusCode());
-			// debug($response->getBody()); 
-			return false;
-		}
-	}
+    }
+
 }

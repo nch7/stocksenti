@@ -55,7 +55,6 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-
 			'database'  => 'stocksenti',
 			'username'  => 'root',
 			'password'  => 'root',
