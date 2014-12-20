@@ -10,6 +10,10 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
+		
+	}
+	public function login()
+	{
 		$this->layout->content = View::make('users.login');
 	}
 
@@ -32,7 +36,33 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		var_dump("expression");
+		$input = Input::all();
+		$username = $input['username'];
+		$password = Hash::make($input['password']);
+		$errors = array();
+		$user = DB::table('users')->where('username', $input['username'])->first();
+		if (!empty($user)){
+			$errors[]="This username already exists, try another dude";
+		}
+		foreach ($input as $key => $value) {
+			if ($value == ''){
+				$errors[]=strtoupper($key) . ' is required';
+			}
+		}
+		if ($input['password']!=$input['password_confirmation']){
+			$errors[] = "Your password doesn't match confirmed password";
+		}
+		if (!empty($errors)){
+			Notification::error($errors);
+			return Redirect::back();
+		}else{
+			DB::table('users')->insert(
+			    array('username' => $username, 'password' => $password)
+			);
+			Notification::success('You have been successfully registered!');
+			return Redirect::to('signin');
+		}
+
 	}
 
 	/**
@@ -42,7 +72,7 @@ class UsersController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function login()
+	public function attempt()
 	{
 		$input = Input::all();
 

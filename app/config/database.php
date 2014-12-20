@@ -55,15 +55,10 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-<<<<<<< Updated upstream
-			'database'  => 'dollarme_stockse',
-			'username'  => 'dollarme_stockse',
-			'password'  => '3U$3q2pT]o$G',
-=======
+
 			'database'  => 'stocksenti',
 			'username'  => 'root',
 			'password'  => 'root',
->>>>>>> Stashed changes
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

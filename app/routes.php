@@ -10,10 +10,11 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('/signin', array('uses' => 'UsersController@index'));
-Route::post('/signin', array('uses' => 'UsersController@login'));
+Route::get('/signin', array('uses' => 'UsersController@login'));
+Route::post('/signin', array('uses' => 'UsersController@attempt'));
 Route::get('/signup', array('uses' => 'UsersController@create'));
-Route::resource('show', 'UsersController');
+Route::post('/signup', array('uses' => 'UsersController@store'));
+Route::get('/admin', array('uses' => 'AdminUserController@login'));
 Route::get('/', array('uses' => 'HomeController@test'));
 
 Route::get('/{stock?}', array('uses' => 'HomeController@index'));
