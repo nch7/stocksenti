@@ -34,11 +34,11 @@ class TwitterRepositoryApi implements TwitterRepositoryInterface {
 		$response = $this->client->get('search/tweets.json?q='.$symbol,$params)->send();
 
 		if($response->getStatusCode()=='200'){
-			debug($response->json());
+			// debug($response->json());
 			return array_fetch($response->json()['statuses'],'text');
 		} else { 
-			debug($response->getStatusCode());
-			debug($response->getBody()); 
+			// debug($response->getStatusCode());
+			// debug($response->getBody()); 
 			return false;
 		}
 	}

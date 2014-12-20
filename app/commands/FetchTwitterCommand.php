@@ -72,11 +72,11 @@ class FetchTwitterCommand extends Command {
 			$category = $sentiment->categorise($tweet);
 			$curScore = $scores_arr[$category];
 			
-			if($curScore >=0 && $curScore<=66){
+			if($category=='neg'){
 				$score = 0+$curScore*66;
-			} elseif ($curScore >=67 && $curScore<=133){
+			} elseif ($category=='neu'){
 				$score = 67+$curScore*66;
-			} elseif ($curScore >=134 && $curScore<=200){
+			} elseif ($category=='pos'){
 				$score = 134+$curScore*66;
 			} else{
 				$score = false;
