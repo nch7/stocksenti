@@ -27,18 +27,24 @@ class HomeController extends BaseController {
 	public function index($stock)
 	{
 		$sentiment = new \PHPInsight\Sentiment();
-		$tweets = $this->TwitterGateway->getMessageAboutSymbol($stock);
-		$tweets;
-		$results = [];
-		foreach ($tweets as $tweet){
-			$results[] = [
-				'scores'=>$sentiment->score($tweet),
-				'category' => $sentiment->categorise($tweet),
-				'text'=>$tweet,
-			];
+
+		$tweet = 'zswe :)';
+		$scores_arr = $sentiment->score($tweet);
+		$category = $sentiment->categorise($tweet);
+		$curScore = $scores_arr[$category];
+		
+		if($category=='neg'){
+			$score = 0+$curScore*66;
+		} elseif ($category=='neu'){
+			$score = 67+$curScore*66;
+		} elseif ($category=='pos'){
+			$score = 134+$curScore*66;
+		} else{
+			$score = false;
 		}
-		echo '<pre>';
-		print_r($results);
+
+		var_dump($scores_arr);
+		echo "</br>".$category.'</br>'.$score;
 		return '</br>';
 
 

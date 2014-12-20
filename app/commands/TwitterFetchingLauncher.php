@@ -38,7 +38,11 @@ class TwitterFetchingLauncher extends Command {
 	public function fire()
 	{
 		$threads = $this->argument('threads');
-		$companies = DB::table('active_companys')->where('status','0')->limit($threads)->get();
+		$companies = DB::table('active_companys')->orderBy('last_action')->where('status','0')->limit($threads)->get();
+
+		if(count($companies)<=0){
+			die("No companies!\r\n");
+		}
 		$affectedIds = array_fetch($companies,'id');
 		DB::table('active_companys')->whereIn('id',$affectedIds)->update(array('status'=>'1'));
 
@@ -46,13 +50,20 @@ class TwitterFetchingLauncher extends Command {
 
 		foreach ($companies as $key => $company) {
 			echo 'Thread Number '.$key.":\n";
-			echo 'running command "php artisan fetch:twitter '.$company->company_id.'"'."\n";
-			exec('php artisan fetch:twitter '.$company->company_id.' > /dev/null &')."\n\n\n"; 
+			echo 'running command "php artisan twitter:fetcher '.$company->company_id.'"'."\n";
+			exec('php artisan twitter:fetcher '.$company->company_id.' > /dev/null &')."\n\n\n"; 
 			usleep($delay);
-			die();
+
 		}
 
 		DB::table('active_companys')->whereIn('id',$affectedIds)->update(array('status'=>'0'));
+		$queries = DB::getQueryLog();
+		echo "\r\n\r\n\r\n\r\n\r\n";
+		foreach ($queries as $key => $query) {
+		 	echo $query['query']."\r\n";
+		 	echo implode('  ',$query['bindings'])."\r\n\r\n";
+
+		 } 
 	}
 
 	/**

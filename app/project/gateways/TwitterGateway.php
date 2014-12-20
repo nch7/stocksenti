@@ -12,17 +12,23 @@ class TwitterGateway {
 		$this->TwitterRepository = $TwitterRepository;
 	}
 
-	public function getMessageAboutSymbol($symbol){
-		$this->TwitterRepository->search($symbol);	
-	}
+	public function getMessageAboutSymbol($symbol,$since_id = false){
+		$args = [
+			'q'=>$symbol,
+			'include_entities'=>false,
+		];
 
-
-	public function setProxy($proxy){
-		if(!empty($proxy)){
-			$this->TwitterRepository->setProxy($proxy);
+		if($since_id!=false){
+			$args['since_id'] = $since_id;
 		}
- 
-		return $this;
+
+		return $this->TwitterRepository->search($args);	
 	}
+
+
+	 public function init($args){
+	 	extract($args);
+	 	return $this->TwitterRepository->init($consumer_key,$consumer_secret,$proxy);
+	 }
 
 }
