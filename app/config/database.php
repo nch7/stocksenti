@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'stocksenti',
-			'username'  => 'root',
-			'password'  => 'root',
+			'database'  => 'dollarme_stockse',
+			'username'  => 'dollarme_stockse',
+			'password'  => '$tOd!G=0WBV%',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

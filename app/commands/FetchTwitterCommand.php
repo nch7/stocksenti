@@ -42,7 +42,7 @@ class FetchTwitterCommand extends Command {
 	{
 		$company_id = $this->argument('company_id');
 
-		$company = DB::table('companies')->where('id',$company_id)->first(); 
+		$company = DB::table('companies')->where('id',$company_id)->join('last_fetched_tweet','last_fetched_tweet.id','=','companies.id')->first(); 
 		DB::table('active_companys')->where('company_id',$company_id)->update(['status'=>1]);
 
 		$twitter_keys = DB::table('twitter_tokens')->orderBy('last_action')->first();
@@ -54,7 +54,7 @@ class FetchTwitterCommand extends Command {
 			echo 'Company search failed'; 
 		}
 
-		$tweets = $twitter->getMessageAboutSymbol($company->symbol);
+		$tweets = $twitter->getMessageAboutSymbol($company->symbol,$company->tweet_id);
 		var_dump($tweets);
 		die();
 		if(!$tweets){

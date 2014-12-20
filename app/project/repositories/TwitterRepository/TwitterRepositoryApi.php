@@ -1,9 +1,9 @@
 <?php 
-use GuzzleHttp\Client;
 namespace project\repositories\TwitterRepository;
 
 date_default_timezone_set('Europe/London');
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
  
 class TwitterRepositoryApi implements TwitterRepositoryInterface {
