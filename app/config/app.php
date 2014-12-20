@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,7 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
-		'project\repositories\RepositoryServiceProvider'
+		'project\repositories\RepositoryServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider'
 
 	),
 

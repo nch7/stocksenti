@@ -10,7 +10,7 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$this->layout->content = View::make('users.login');
 	}
 
 	/**
@@ -21,7 +21,7 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$this->layout->content = View::make('users.create');
 	}
 
 	/**
@@ -32,7 +32,7 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		var_dump("expression");
 	}
 
 	/**
@@ -42,45 +42,43 @@ class UsersController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function login()
 	{
-		//
+		$input = Input::all();
+
+		$attempt = Auth::attempt([
+			'username' => $input['username'],
+			'password' => $input['password']
+			]);
+		if ($attempt){
+			Notification::success("Successfully logged in");
+			return Redirect::back();
+
+		}
+		Notification::error("Your login attempt was failed due to wrong password or username");
+		return Redirect::back();
+
+
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /users/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		//
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /users/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id)
 	{
-		//
+		
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /users/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+
+	public function destroy()
 	{
-		//
+		Auth::logout();
+		Notification::success("You have been logged out Successfully!");
+		return Redirect::home();
 	}
 
 }
