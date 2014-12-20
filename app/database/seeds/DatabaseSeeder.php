@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UsersTableSeeder');
 		$this->call('TwitterTokensTableSeeder');
 		$this->call('StocktwitsTokensTableSeeder');
+		$this->call('CompanyScoresTableSeeder');
 	}
 
 }

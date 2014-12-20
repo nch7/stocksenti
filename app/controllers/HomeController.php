@@ -2,12 +2,13 @@
 
 use project\gateways\TwitterGateway;
 use project\gateways\CompanyGateway;
+
 class HomeController extends BaseController {
 
 
 	public function index()
 	{
-		
+
 		$this->TwitterGateway = $TwitterGateway;
 		$this->CompanyGateway = $CompanyGateway;
 	}
