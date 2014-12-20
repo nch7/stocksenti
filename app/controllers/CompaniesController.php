@@ -16,7 +16,6 @@ class CompaniesController extends \BaseController {
 	{
 		$user = User::with('companys')->find(Auth::id());
 		$this->layout->companys = $user->companys;
-		debug($user->companys);
 		$this->layout->content = View::make('hello')->with('companys',$user->companys);
 	}	
 
@@ -52,7 +51,8 @@ class CompaniesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$scores = DB::table('company_scores')->where('company_id',$id)->get();
+		return View::make('companies.show')->with('scores',$scores);
 	}
 
 	/**

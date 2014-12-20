@@ -1,1 +1,1 @@
-C:\Users\Nika\Desktop\Projects\StockSenti\app/views/companies/show.blade.php
+<?php var_dump($scores); ?>
