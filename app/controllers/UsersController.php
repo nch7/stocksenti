@@ -72,7 +72,7 @@ class UsersController extends \BaseController {
 				]);
 			if ($attempt){
 				Notification::success("Successfully logged in");
-				$this->index();
+				return Redirect::to('/company');
 
 			}else{
 				$errors[] = "Your login attempt was failed due to wrong password or username";
