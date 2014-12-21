@@ -6,7 +6,6 @@ class CompaniesController extends \BaseController {
 			return Route::to('/');
 		}
 	}
-	protected $layout = "layouts.user_layout";
 	/**
 	 * Display a listing of the resource.
 	 * GET /companies
@@ -15,10 +14,10 @@ class CompaniesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$layouts
 		$user = User::with('companys')->find(Auth::id());
 		$this->layout->companys = $user->companys;
-		return View::make('hello');
+		debug($user->companys);
+		$this->layout->content = View::make('hello')->with('companys',$user->companys);
 	}	
 
 

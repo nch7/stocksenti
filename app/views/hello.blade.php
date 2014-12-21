@@ -96,7 +96,32 @@
     </section>
 @stop
 @section('content')
-    <div class="" style="background:green; height:200px; margin-top:100px;">
-        jemaliko
+    <div class="" style="margin-top:80px;">
+        <div id="user_page">
+            <div class="container user-page-inner">
+                <a href="#" class="btn btn-lg btn-success">Add Company</a>
+               @if(isset($companys))
+                <table class="table table-stripped table-bordered">
+                    <caption>Companies table</caption>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    <?php foreach ($companys as $comp): ?>
+                        <tr>
+                            <td>{{$comp->symbol}}</td>
+                            <td><a href="{{action('CompaniesController@show',$comp->id)}}" class="btn btn-sm">show</a></td>
+                        </tr>
+                    <?php endforeach ?>
+                        
+                    </tbody>
+                </table>
+                @endif
+            </div>
+        </div>
     </div>
 @stop

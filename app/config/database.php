@@ -55,12 +55,12 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'dollarme_stockse',
+			/*'database'  => 'dollarme_stockse',
 			'username'  => 'dollarme_stockse',
-			'password'  => '$tOd!G=0WBV%',/*
+			'password'  => '$tOd!G=0WBV%',*/
 			'database'  => 'stocksenti',
 			'username'  => 'root',
-			'password'  => 'root',*/
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',
