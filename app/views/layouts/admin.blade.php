@@ -20,6 +20,7 @@
 			<?=$content?>
 		<?php endif; ?>
 	</div>
+			
 
 
 	<footer style="margin-top:50px; font-size:18px;">

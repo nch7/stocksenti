@@ -58,6 +58,9 @@ return array(
 			'database'  => 'dollarme_stockse',
 			'username'  => 'dollarme_stockse',
 			'password'  => '$tOd!G=0WBV%',
+			/*'database'  => 'stocksenti',
+			'username'  => 'root',
+			'password'  => 'root',*/
 			'charset'   => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix'    => '',

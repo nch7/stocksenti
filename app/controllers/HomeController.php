@@ -4,7 +4,8 @@ use project\gateways\TwitterGateway;
 use project\gateways\CompanyGateway;
 class HomeController extends BaseController {
 
-	public function __construct(TwitterGateway $TwitterGateway,CompanyGateway $CompanyGateway)
+
+	public function index()
 	{
 		
 		$this->TwitterGateway = $TwitterGateway;
@@ -47,11 +48,11 @@ class HomeController extends BaseController {
 		echo "</br>".$category.'</br>'.$score;
 		return '</br>';
 
-
 	}
 
-	public function test(){
-		return View::make('hello');
+	public function test()
+	{
+		
 	}
 
 }

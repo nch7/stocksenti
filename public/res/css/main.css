@@ -39,7 +39,7 @@
 }
 .register-section label{
 	font-size:18px;
-	margin-top:13px;
+	margin-top:5px;
 }
 .register-section{
 	background:rgba(0,0,0,.8);
@@ -52,8 +52,8 @@
 	line-height: 30px;
 }
 .intro-body{
-	padding-top:100px;
-	padding-bottom:100px;
+	padding-top:250px;
+	padding-bottom:250px;
 }
 .login-section{
 	padding-top:250px;

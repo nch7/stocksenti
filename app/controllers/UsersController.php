@@ -2,16 +2,10 @@
 
 class UsersController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /users
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		
+	public function index(){
+		$this->layout->content = View::make('hello');
 	}
+
 	public function login()
 	{
 		$this->layout->content = View::make('users.login');
@@ -25,6 +19,7 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
+
 		$this->layout->content = View::make('users.create');
 	}
 
@@ -37,32 +32,32 @@ class UsersController extends \BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$username = $input['username'];
-		$password = Hash::make($input['password']);
-		$errors = array();
-		$user = DB::table('users')->where('username', $input['username'])->first();
-		if (!empty($user)){
-			$errors[]="This username has already been captivated, try another";
-		}
-		foreach ($input as $key => $value) {
-			if ($value == ''){
-				$errors[]=strtoupper($key) . ' is required';
+			$username = $input['username'];
+			$password = Hash::make($input['password']);
+			$errors = array();
+			$user = DB::table('users')->where('username', $input['username'])->first();
+			if (!empty($user)){
+				$errors[]="This username has already been captivated, try another";
 			}
-		}
-		if ($input['password']!=$input['password_confirmation']){
-			$errors[] = "Your password doesn't match confirmed password";
-		}
-		if (!empty($errors)){
-			$my_errors = array(2 => $errors);
-			Notification::error($my_errors);
-			return Redirect::back();
-		}else{
-			DB::table('users')->insert(
-			    array('username' => $username, 'password' => $password)
-			);
-			Notification::success('You have been successfully registered!');
-			return Redirect::to('/');
-		}
+			foreach ($input as $key => $value) {
+				if ($value == ''){
+					$errors[]=strtoupper($key) . ' is required';
+				}
+			}
+			if ($input['password']!=$input['password_confirmation']){
+				$errors[] = "Your password doesn't match confirmed password";
+			}
+			if (!empty($errors)){
+				$my_errors = array(2 => $errors);
+				Notification::error($my_errors);
+				return Redirect::back();
+			}else{
+				DB::table('users')->insert(
+				    array('username' => $username, 'password' => $password)
+				);
+				Notification::success('You have been successfully registered!');
+				return Redirect::to('/');
+			}
 
 	}
 
@@ -76,26 +71,26 @@ class UsersController extends \BaseController {
 	public function attempt()
 	{
 		$input = Input::all();
-		$errors = array();
-		if (empty($input['username'])){
-			$errors[] = "You must fill username field";
-		}
-		if (empty($input['password'])){
-			$errors[] = "You must fill password field";
-		}
-		$attempt = Auth::attempt([
-			'username' => $input['username'],
-			'password' => $input['password']
-			]);
-		if ($attempt){
-			Notification::success("Successfully logged in");
-			return Redirect::back();
+			$errors = array();
+			if (empty($input['username'])){
+				$errors[] = "You must fill username field";
+			}
+			if (empty($input['password'])){
+				$errors[] = "You must fill password field";
+			}
+			$attempt = Auth::attempt([
+				'username' => $input['username'],
+				'password' => $input['password']
+				]);
+			if ($attempt){
+				Notification::success("Successfully logged in");
+				$this->index();
 
-		}else{
-			$error[] = "Your login attempt was failed due to wrong password or username";
-			Notification::error($errors);
-			return Redirect::back();
-		}
+			}else{
+				$errors[] = "Your login attempt was failed due to wrong password or username";
+				Notification::error($errors);
+				return Redirect::back();
+			}
 		
 
 
@@ -118,7 +113,7 @@ class UsersController extends \BaseController {
 	{
 		Auth::logout();
 		Notification::success("You have been logged out Successfully!");
-		return Redirect::to('hello');
+		return Redirect::to('/');
 	}
 
 }
