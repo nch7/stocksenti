@@ -10,7 +10,7 @@ class CompaniesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$companys = DB::table('companys')->get();
 	}
 
 	/**

@@ -11,24 +11,12 @@ class UsersController extends \BaseController {
 		$this->layout->content = View::make('users.login');
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /users/create
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 
 		$this->layout->content = View::make('users.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /users
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{
 		$input = Input::all();
